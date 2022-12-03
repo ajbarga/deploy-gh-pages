@@ -4,10 +4,18 @@ inputs:
   token:
     description: 'PAT with admin access to repo'
     required: true
+  merge:
+    description: 'Whether or not to merge PR'
+    required: false
+    default: 'false'
     
   repository:
     description: 'Repository name with owner'
     default: ${{ github.repository }}
+  prNumber:
+    description: 'PR Number'
+    default: ${{ github.event.pull_request.number }}
+    
 
 runs:
   using: 'docker'
@@ -15,3 +23,5 @@ runs:
   env:
     REPO: ${{ inputs.repository }}
     TOKEN: ${{ inputs.token }}
+    MERGE: ${{ inputs.merge }}
+    PR_NUMBER: ${{ inputs.prNumber }}
