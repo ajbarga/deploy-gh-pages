@@ -1,0 +1,17 @@
+name: 'Deploy gh-pages PR build'
+description: Deploys a gh-pages site from a PR build
+inputs:
+  token:
+    description: 'PAT with admin access to repo'
+    required: true
+    
+  repository:
+    description: 'Repository name with owner'
+    default: ${{ github.repository }}
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    REPO: ${{ inputs.repository }}
+    TOKEN: ${{ inputs.token }}
