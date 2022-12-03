@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Release on PR Merge
-      uses: ajbarga/release-management@main
+      uses: ajbarga/release-management@v1
       with:
         token: ${{ secrets.MY_PAT }}
         
