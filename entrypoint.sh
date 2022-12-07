@@ -65,7 +65,7 @@ git push -f -q -u origin ${LOCAL}
 
 #git auth login --with-token ${GITHUB_TOKEN}
 
-gh pr create --repo ajbarga/word-game --head ajbarga/deploy --base gh-pages --title '${PR_TITLE}'
+gh pr create --repo ajbarga/word-game --head ajbarga/deploy --base gh-pages --title '${PR_TITLE}' --body "Deployment PR created for @${ACTOR}."
 
 # curl -s \
 #   -X POST \
