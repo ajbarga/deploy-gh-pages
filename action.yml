@@ -4,24 +4,36 @@ inputs:
   token:
     description: 'PAT with admin access to repo'
     required: true
-  merge:
-    description: 'Whether or not to merge PR'
-    required: false
-    default: 'false'
-    
+  
+  actor:
+    description: 'PR author'
+    default: ${{ github.actor }}
+  buildFolder:
+    description: 'Build Folder'
+    default: dist
+  deploy:
+    description: "Branch with page deployment"
+    default: gh-pages
+  main:
+    description: "Branch with raw code"
+    default: main
+  prTitle:
+    description: "Title for deployment PR"
+    default: ${{ github.event.pull_request.title }}
   repository:
-    description: 'Repository name with owner'
+    description: "Repository name with owner"
     default: ${{ github.repository }}
-  prNumber:
-    description: 'PR Number'
-    default: ${{ github.event.pull_request.number }}
+
     
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
+    ACTOR: ${{ inputs.actor }}
+    BUILD: ${{ inputs.buildFolder }}
+    GITHUB_TOKEN: ${{ inputs.token }}
     REPO: ${{ inputs.repository }}
-    TOKEN: ${{ inputs.token }}
-    MERGE: ${{ inputs.merge }}
-    PR_NUMBER: ${{ inputs.prNumber }}
+    MAIN: ${{ inputs.main }}
+    DEPLOY: ${{ inputs.deploy }}
+    PR_TITLE: ${{ inputs.prTitle }}
