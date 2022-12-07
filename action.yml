@@ -11,6 +11,9 @@ inputs:
   buildFolder:
     description: 'Build Folder'
     default: dist
+  commit:
+    description: Commit Url for body
+    default: 'https://github.com/${{ github.repository }}.git'
   deploy:
     description: "Branch with page deployment"
     default: gh-pages
@@ -30,6 +33,7 @@ runs:
   env:
     ACTOR: ${{ inputs.actor }}
     BUILD: ${{ inputs.buildFolder }}
+    COMMIT: ${{ inputs.commit }}
     GITHUB_TOKEN: ${{ inputs.token }}
     REPO: ${{ inputs.repository }}
     MAIN: ${{ inputs.main }}
