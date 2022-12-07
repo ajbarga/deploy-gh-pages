@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Setup cUrl
-apt update > /dev/null
-apt upgrade > /dev/null
-apt install curl > /dev/null
+apt-get update > /dev/null
+apt-get upgrade > /dev/null
+apt-get install curl > /dev/null
 
 SRC="SRC-BRANCH"
 DEST="DEPLOY-BRANCH"
@@ -55,6 +55,7 @@ curl -s \
   -X POST \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: token ${GITHUB_TOKEN}"\
+  -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/${REPO}/pulls \
   -d '{"title":"${PR_TITLE}","body":"Deployment PR created for @${ACTOR}.","head":"${LOCAL}","base":"${DEPLOY}"}'
 
