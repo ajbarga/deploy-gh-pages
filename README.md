@@ -1,1 +1,3 @@
-# deploy-gh-pages
+# Action: Deploy-GH-Pages
+
+## Latest Version: `v1`
