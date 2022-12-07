@@ -45,17 +45,25 @@ git commit -q -m "Deploy files from ${MAIN} branch to ${DEPLOY} branch"
 # Push changes to remote repository
 git push -f -q -u origin ${LOCAL}
 
-# Create or edit AutoSync Pr
-gh pr create \
-    --repo ${REPO} \
-    --head ${LOCAL} \
-    --base ${DEPLOY} \
-    --title "${PR_TITLE}" \
-    --body "Deployment PR created for @${ACTOR}." \
-    --label "deploy" > /dev/null || \
-gh pr edit ${LOCAL} \
-    --repo ${REPO} \
-    --title "${PR_TITLE}" > /dev/null
+
+curl \
+  -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer ${GITHUB_TOKEN}"\
+  https://api.github.com/repos/${REPO}/pulls \
+  -d '{"title":"${PR_TITLE}","body":"Deployment PR created for @${ACTOR}.","head":"${LOCAL}","base":"${DEPLOY}"}'
+
+# # Create or edit AutoSync Pr
+# gh pr create \
+#     --repo ${REPO} \
+#     --head ${LOCAL} \
+#     --base ${DEPLOY} \
+#     --title "${PR_TITLE}" \
+#     --body "Deployment PR created for @${ACTOR}." \
+#     --label "deploy" > /dev/null || \
+# gh pr edit ${LOCAL} \
+#     --repo ${REPO} \
+#     --title "${PR_TITLE}" > /dev/null
 
 # Delete Sync-ed Repo, Sleep to avoid API call overload
 cd ..
