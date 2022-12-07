@@ -29,6 +29,9 @@ git clone ${git_base}/${REPO}.git ${DEST}
 cd ${DEST}
 git checkout -q -f ${DEPLOY}
 git checkout -q -f -b ${LOCAL}
+
+# Delete old contents
+rm -rf ./*
 cd ..
 
 # Copy files from template repo
