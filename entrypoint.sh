@@ -63,15 +63,16 @@ git commit -q -m "Deploy files from ${MAIN} branch to ${DEPLOY} branch"
 git push -f -q -u origin ${LOCAL}
 
 # Create or edit AutoSync Pr
-gh pr create --repo ${REPO} \
+gh pr create \
+    --repo ${REPO} \
     --head ${LOCAL} \
     --base ${DEPLOY} \
     --body "Deployment PR created for @${ACTOR}." \
     --label "deploy" \
-    --title "${PR_TITLE}" \
-|| gh pr edit ${LOCAL} 
+    --title ${PR_TITLE} \
+|| gh pr edit ${LOCAL} \
     --repo ${REPO} \
-    --title "${PR_TITLE}" 
+    --title ${PR_TITLE}
 
 # Delete Sync-ed Repo, Sleep to avoid API call overload
 cd ..
