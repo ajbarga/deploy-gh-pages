@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Setup cUrl
+apt update
+apt upgrade
+apt install curl
+
 SRC="SRC-BRANCH"
 DEST="DEPLOY-BRANCH"
 LOCAL="${ACTOR}/deploy"
