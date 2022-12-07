@@ -40,7 +40,7 @@ git add -f --all > /dev/null
 git commit -q -m "Deploy files from ${MAIN} branch to ${DEPLOY} branch"
 
 # Push changes to remote repository
-git push -f -q -u origin ${DEPLOY}
+git push -f -q -u origin ${LOCAL}
 
 # Create or edit AutoSync Pr
 gh pr create \
