@@ -24,8 +24,6 @@ inputs:
     description: "Repository name with owner"
     default: ${{ github.repository }}
 
-    
-
 runs:
   using: 'docker'
   image: 'Dockerfile'
