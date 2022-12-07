@@ -30,7 +30,7 @@ runs:
   env:
     ACTOR: ${{ inputs.actor }}
     BUILD: ${{ inputs.buildFolder }}
-    GITHUB_TOKEN: ${{ inputs.token }}
+    GH_TOKEN: ${{ inputs.token }}
     REPO: ${{ inputs.repository }}
     MAIN: ${{ inputs.main }}
     DEPLOY: ${{ inputs.deploy }}
