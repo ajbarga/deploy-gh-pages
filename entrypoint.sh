@@ -62,30 +62,18 @@ git commit -q -m "Deploy files from ${MAIN} branch to ${DEPLOY} branch"
 # Push changes to remote repository
 git push -f -q -u origin ${LOCAL}
 
-
-#git auth login --with-token ${GITHUB_TOKEN}
-
-gh pr create --repo ajbarga/word-game --head ajbarga/deploy --base gh-pages --title '${PR_TITLE}' --body "Deployment PR created for @${ACTOR}."
-
-# curl -s \
-#   -X POST \
-#   -H "Accept: application/vnd.github+json" \
-#   -H "Authorization: Bearer ${GITHUB_TOKEN}"\
-#   -H "X-GitHub-Api-Version: 2022-11-28" \
-#   https://api.github.com/repos/${REPO}/pulls \
-#   -d '{"title":"${PR_TITLE}","body":"Deployment PR created for @${ACTOR}.","head":"${LOCAL}","base":"${DEPLOY}"}'
-
-# # Create or edit AutoSync Pr
-# gh pr create \
-#     --repo ${REPO} \
-#     --head ${LOCAL} \
-#     --base ${DEPLOY} \
-#     --title "${PR_TITLE}" \
-#     --body "Deployment PR created for @${ACTOR}." \
-#     --label "deploy" || \
-# gh pr edit ${LOCAL} \
-#     --repo ${REPO} \
-#     --title "${PR_TITLE}" 
+echo "${REPO} ${LOCAL} ${DEPLOY}"
+# Create or edit AutoSync Pr
+gh pr create \
+    --repo ${REPO} \
+    --head ${LOCAL} \
+    --base ${DEPLOY} \
+    --body "Deployment PR created for @${ACTOR}." \
+    --label "deploy" \
+    --title ${$PR_TITLE} || \
+gh pr edit ${LOCAL} \
+    --repo ${REPO} \
+    --title ${PR_TITLE} 
 
 # Delete Sync-ed Repo, Sleep to avoid API call overload
 cd ..
