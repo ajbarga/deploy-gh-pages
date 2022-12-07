@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Setup cUrl
-apt update
-apt upgrade
-apt install curl
+apt update > /dev/null
+apt upgrade > /dev/null
+apt install curl > /dev/null
 
 SRC="SRC-BRANCH"
 DEST="DEPLOY-BRANCH"
@@ -51,10 +51,10 @@ git commit -q -m "Deploy files from ${MAIN} branch to ${DEPLOY} branch"
 git push -f -q -u origin ${LOCAL}
 
 
-curl \
+curl -s \
   -X POST \
   -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer ${GITHUB_TOKEN}"\
+  -H "Authorization: token ${GITHUB_TOKEN}"\
   https://api.github.com/repos/${REPO}/pulls \
   -d '{"title":"${PR_TITLE}","body":"Deployment PR created for @${ACTOR}.","head":"${LOCAL}","base":"${DEPLOY}"}'
 
