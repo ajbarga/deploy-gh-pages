@@ -2,7 +2,7 @@
 
 SRC="SRC-BRANCH"
 DEST="DEPLOY-BRANCH"
-LOCAL="LOCAL"
+LOCAL="${ACTOR}/deploy"
 
 git config --global user.name "${ACTOR}"
 git config --global user.email "${ACTOR}@no-reply.github.com"
