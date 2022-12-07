@@ -1,20 +1,20 @@
 #!/bin/sh
 
-# # Setup cUrl
-# apt-get update > /dev/null
-# apt-get upgrade > /dev/null
-# apt-get install curl > /dev/null
+# Setup cUrl
+apt-get update > /dev/null
+apt-get upgrade > /dev/null
+apt-get install curl > /dev/null
 
 
-type -p curl >/dev/null || apt install curl -y
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-&& chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-&& apt update \
-&& apt install gh -y
+# type -p curl >/dev/null || apt install curl -y
+# curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+# && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+# && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+# && apt update \
+# && apt install gh -y
 
-apt update
-apt install gh
+# apt update
+# apt install gh
 
 
 SRC="SRC-BRANCH"
@@ -62,25 +62,25 @@ git commit -q -m "Deploy files from ${MAIN} branch to ${DEPLOY} branch"
 # Push changes to remote repository
 git push -f -q -u origin ${LOCAL}
 
-# curl -s \
-#   -X POST \
-#   -H "Accept: application/vnd.github+json" \
-#   -H "Authorization: token ${GITHUB_TOKEN}"\
-#   -H "X-GitHub-Api-Version: 2022-11-28" \
-#   https://api.github.com/repos/${REPO}/pulls \
-#   -d '{"title":"${PR_TITLE}","body":"Deployment PR created for @${ACTOR}.","head":"${LOCAL}","base":"${DEPLOY}"}'
+curl -s \
+  -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: token ${GITHUB_TOKEN}"\
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/${REPO}/pulls \
+  -d '{"title":"${PR_TITLE}","body":"Deployment PR created for @${ACTOR}.","head":"${LOCAL}","base":"${DEPLOY}"}'
 
-# Create or edit AutoSync Pr
-gh pr create \
-    --repo ${REPO} \
-    --head ${LOCAL} \
-    --base ${DEPLOY} \
-    --title "${PR_TITLE}" \
-    --body "Deployment PR created for @${ACTOR}." \
-    --label "deploy" || \
-gh pr edit ${LOCAL} \
-    --repo ${REPO} \
-    --title "${PR_TITLE}" 
+# # Create or edit AutoSync Pr
+# gh pr create \
+#     --repo ${REPO} \
+#     --head ${LOCAL} \
+#     --base ${DEPLOY} \
+#     --title "${PR_TITLE}" \
+#     --body "Deployment PR created for @${ACTOR}." \
+#     --label "deploy" || \
+# gh pr edit ${LOCAL} \
+#     --repo ${REPO} \
+#     --title "${PR_TITLE}" 
 
 # Delete Sync-ed Repo, Sleep to avoid API call overload
 cd ..
