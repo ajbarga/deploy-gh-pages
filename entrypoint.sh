@@ -77,10 +77,10 @@ gh pr create \
     --base ${DEPLOY} \
     --title "${PR_TITLE}" \
     --body "Deployment PR created for @${ACTOR}." \
-    --label "deploy" > /dev/null || \
+    --label "deploy" || \
 gh pr edit ${LOCAL} \
     --repo ${REPO} \
-    --title "${PR_TITLE}" > /dev/null
+    --title "${PR_TITLE}" 
 
 # Delete Sync-ed Repo, Sleep to avoid API call overload
 cd ..
