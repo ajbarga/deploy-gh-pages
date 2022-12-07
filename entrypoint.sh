@@ -65,7 +65,7 @@ git push -f -q -u origin ${LOCAL}
 curl -s \
   -X POST \
   -H "Accept: application/vnd.github+json" \
-  -H "Authorization: token ${GITHUB_TOKEN}"\
+  -H "Authorization: Bearer ${GITHUB_TOKEN}"\
   -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/${REPO}/pulls \
   -d '{"title":"${PR_TITLE}","body":"Deployment PR created for @${ACTOR}.","head":"${LOCAL}","base":"${DEPLOY}"}'
