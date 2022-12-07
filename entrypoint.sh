@@ -49,7 +49,7 @@ git push -f -q -u origin ${LOCAL}
 gh pr create \
     --repo ${REPO} \
     --head ${LOCAL} \
-    --base ${DEPLOY}
+    --base ${DEPLOY} \
     --title "${PR_TITLE}" \
     --body "Deployment PR created for @${ACTOR}." \
     --label "deploy" > /dev/null || \
