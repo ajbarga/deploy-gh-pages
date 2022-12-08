@@ -64,11 +64,23 @@ git push -f -q -u origin ${LOCAL}
 
 
 
-curl -X POST \
-  -H "Authorization: token ${TOKEN}" \
-  -H "Content-Type: application/json" \
-  -d "{\"title\":\"${PR_TITLE}\",\"body\":\"Deployment PR created for @${ACTOR} at ${COMMIT}\",\"head\":\"${LOCAL}\",\"base\":\"${DEPLOY}\"}" \
-  "https://api.github.com/repos/${REPO}/pulls"
+API_ENDPOINT="https://api.github.com/repos/${REPO}/pulls"
+
+HEADERS="-H 'Authorization: token ${TOKEN}' -H 'Accept: application/vnd.github+json'"
+
+PR_BODY="Deployment PR created for @${ACTOR} at ${COMMIT}"
+
+PAYLOAD="{\"title\": \"${PR_TITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${DEPLOY}\", \"head\": \"${LOCAL}\"}"
+
+curl ${HEADERS} -X POST -d "${PAYLOAD}" ${API_ENDPOINT}
+# curl ${HEADERS} -X PATCH -d "${PAYLOAD}" ${API_ENDPOINT}
+
+
+# curl -X POST \
+#   -H "Authorization: token ${TOKEN}" \
+#   -H "Content-Type: application/json" \
+#   -d "{\"title\":\"${PR_TITLE}\",\"body\":\"Deployment PR created for @${ACTOR} at ${COMMIT}\",\"head\":\"${LOCAL}\",\"base\":\"${DEPLOY}\"}" \
+#   "https://api.github.com/repos/${REPO}/pulls"
 
 # # Create or edit AutoSync Pr
 # gh pr create \
