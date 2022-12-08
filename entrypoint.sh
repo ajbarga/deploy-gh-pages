@@ -60,7 +60,7 @@ ACCEPT="Accept: application/vnd.github+json"
 
 PR_BODY="Deployment PR created for @${INPUT_ACTOR} at ${INPUT_COMMIT}"
 
-POST_PAYLOAD="{\"title\": \"${INPUT_PR_TITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
+POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
 
 curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" ${API_ENDPOINT} || \
 true > /dev/null
