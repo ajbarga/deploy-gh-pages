@@ -67,13 +67,12 @@ git push -f -q -u origin ${LOCAL}
 API_ENDPOINT="https://api.github.com/repos/${REPO}/pulls"
 
 AUTH="Authorization: token ${TOKEN}"
-ACCEPT="Accept: application/vnd.github+json"
 
 PR_BODY="Deployment PR created for @${ACTOR} at ${COMMIT}"
 
 PAYLOAD="{\"title\": \"${PR_TITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${DEPLOY}\", \"head\": \"${LOCAL}\"}"
 
-curl -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${PAYLOAD}" ${API_ENDPOINT}
+curl -H "${AUTH}" -X POST -d "${PAYLOAD}" "${API_ENDPOINT}"
 # curl ${HEADERS} -X PATCH -d "${PAYLOAD}" ${API_ENDPOINT}
 
 
