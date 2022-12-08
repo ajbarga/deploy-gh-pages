@@ -21,8 +21,8 @@ SRC="SRC-BRANCH"
 DEST="DEPLOY-BRANCH"
 LOCAL="${ACTOR}/deploy"
 
-git config --global user.name "${ACTOR}"
-git config --global user.email "${ACTOR}@no-reply.github.com"
+git config --global user.name "actions-bot"
+git config --global user.email "actions-bot@no-reply.github.com"
 
 git_base="https://${GITHUB_TOKEN}@github.com"
 
