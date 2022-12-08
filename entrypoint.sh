@@ -71,33 +71,14 @@ ACCEPT="Accept: application/vnd.github+json"
 
 PR_BODY="Deployment PR created for @${ACTOR} at ${COMMIT}"
 
-PAYLOAD="{\"title\": \"${PR_TITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${DEPLOY}\", \"head\": \"${LOCAL}\"}"
+POST_PAYLOAD="{\"title\": \"${PR_TITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${DEPLOY}\", \"head\": \"${LOCAL}\"}"
+PATCH_PAYLOAD="{\"title\": \"${PR_TITLE}\", \"body\": \"${PR_BODY}\"}"
 
-curl -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${PAYLOAD}" ${API_ENDPOINT}
-# curl ${HEADERS} -X PATCH -d "${PAYLOAD}" ${API_ENDPOINT}
+PR_NUM=1
 
+curl -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" || \
+curl -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}/${PR_NUM}"
 
-# curl -X POST \
-#   -H "Authorization: token ${TOKEN}" \
-#   -H "Content-Type: application/json" \
-#   -d "{\"title\":\"${PR_TITLE}\",\"body\":\"Deployment PR created for @${ACTOR} at ${COMMIT}\",\"head\":\"${LOCAL}\",\"base\":\"${DEPLOY}\"}" \
-#   "https://api.github.com/repos/${REPO}/pulls"
-
-# # Create or edit AutoSync Pr
-# gh pr create \
-#     --repo ${REPO} \
-#     --head ${LOCAL} \
-#     --base ${DEPLOY} \
-#     --body "Deployment PR created for @${ACTOR} at ${COMMIT}" \
-#     --label "deploy" \
-#     --reviewer ${ACTOR} \
-#     --title "${PR_TITLE}" \
-# || gh pr edit ${LOCAL} \
-#     --repo ${REPO} \
-#     --title "${PR_TITLE}" \
-#     --body "Deployment PR created for @${ACTOR} at ${COMMIT}"
-
-# Delete Sync-ed Repo, Sleep to avoid API call overload
 cd ..
 rm -rf ${SRC}
 rm -rf ${DEST}
