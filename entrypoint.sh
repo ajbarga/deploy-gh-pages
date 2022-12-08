@@ -20,7 +20,7 @@ git clone ${git_base}/${INPUT_REPOSITORY}.git ${source}
 
 # Checkout main branch
 cd ${source}
-git checkout -q -f ${MAIN}
+git checkout -q -f ${INPUT_MAIN}
 
 # Build deployment
 npm ci
@@ -33,7 +33,7 @@ git clone ${git_base}/${INPUT_REPOSITORY}.git ${destination}
 
 # Checkout branch
 cd ${destination}
-git checkout -q -f ${DEPLOY}
+git checkout -q -f ${INPUT_DEPLOY}
 git checkout -q -f -b ${local}
 
 # Delete old contents
@@ -62,7 +62,7 @@ PR_BODY="Deployment PR created for @${INPUT_ACTOR} at ${INPUT_COMMIT}"
 
 POST_PAYLOAD="{\"title\": \"${INPUT_PR_TITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
 
-curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" ${API_ENDPOINT} > /dev/null || \
+curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" ${API_ENDPOINT} || \
 true > /dev/null
 # curl ${HEADERS} -X PATCH -d "${PAYLOAD}" ${API_ENDPOINT}
 
