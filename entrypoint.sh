@@ -16,11 +16,10 @@ git config --global user.email "actions-bot@no-reply.github.com"
 git_base="https://actions-bot:${INPUT_TOKEN}@github.com"
 
 # Clone src repo
-git clone ${git_base}/${INPUT_REPOSITORY}.git ${source}
+git clone --branch "${INPUT_MAIN}" "${git_base}/${INPUT_REPOSITORY}.git" ${source}
 
 # Checkout main branch
 cd ${source}
-git checkout -q -f ${INPUT_MAIN}
 
 # Build deployment
 npm ci
@@ -29,11 +28,10 @@ npm run build
 cd ..
 
 # Clone sync-ing repository
-git clone ${git_base}/${INPUT_REPOSITORY}.git ${destination}
+git clone --branch "${INPUT_DEPLOY}" "${git_base}/${INPUT_REPOSITORY}.git" ${destination}
 
 # Checkout branch
 cd ${destination}
-git checkout -q -f ${INPUT_DEPLOY}
 git checkout -q -f -b ${local}
 
 # Delete old contents
