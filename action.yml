@@ -3,7 +3,7 @@ description: Deploys a gh-pages site from a PR build
 inputs:
   token:
     description: 'PAT with admin access to repo'
-    required: true
+    default: ${{ github.token }}
 
   buildFolder:
     description: 'Build Folder'
