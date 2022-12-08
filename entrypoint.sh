@@ -24,7 +24,7 @@ LOCAL="${ACTOR}/deploy"
 git config --global user.name "${ACTOR}"
 git config --global user.email "${ACTOR}@no-reply.github.com"
 
-git_base="https://${ACTOR}:${GITHUB_TOKEN}@github.com"
+git_base="https://${GITHUB_TOKEN}@github.com"
 
 # Clone src repo
 git clone ${git_base}/${REPO}.git ${SRC}
