@@ -30,12 +30,3 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    ACTOR: ${{ inputs.actor }}
-    BUILD: ${{ inputs.buildFolder }}
-    COMMIT: ${{ inputs.commit }}
-    GITHUB_TOKEN: ${{ inputs.token }}
-    REPO: ${{ inputs.repository }}
-    MAIN: ${{ inputs.main }}
-    DEPLOY: ${{ inputs.deploy }}
-    PR_TITLE: ${{ inputs.prTitle }}

@@ -6,20 +6,20 @@ apt-get upgrade > /dev/null
 apt-get install curl > /dev/null
 
 
-SRC="main-local"
-DEST="deploy-local"
-LOCAL="${ACTOR}/deploy"
+source="main-local"
+destination="deploy-local"
+local="${INPUT_ACTOR}/deploy"
 
 git config --global user.name "actions-bot"
 git config --global user.email "actions-bot@no-reply.github.com"
 
-git_base="https://${GITHUB_TOKEN}@github.com"
+git_base="https://${INPUT_TOKEN}@github.com"
 
 # Clone src repo
-git clone ${git_base}/${REPO}.git ${SRC}
+git clone ${git_base}/${INPUT_REPOSITORY}.git ${source}
 
 # Checkout main branch
-cd ${SRC}
+cd ${source}
 git checkout -q -f ${MAIN}
 
 # Build deployment
@@ -29,43 +29,43 @@ npm run build
 cd ..
 
 # Clone sync-ing repository
-git clone ${git_base}/${REPO}.git ${DEST}
+git clone ${git_base}/${INPUT_REPOSITORY}.git ${destination}
 
 # Checkout branch
-cd ${DEST}
+cd ${destination}
 git checkout -q -f ${DEPLOY}
-git checkout -q -f -b ${LOCAL}
+git checkout -q -f -b ${local}
 
 # Delete old contents
 rm -rf ./*
 cd ..
 
 # Copy files from template repo
-cp -rf ${SRC}/${BUILD}/* ${DEST} || true
+cp -rf ${source}/${INPUT_BUILD}/* ${destination} || true
 
 # Navigate to sync-ing repo
-cd ${DEST}
+cd ${destination}
 git add -f --all > /dev/null
-git commit -q -m "Deploy files from ${MAIN} branch to ${DEPLOY} branch"
+git commit -q -m "Deploy files from ${INPUT_MAIN} branch to ${INPUT_DEPLOY} branch"
 
 # Push changes to remote repository
-git push -f -q -u origin ${LOCAL}
+git push -f -q -u origin ${local}
 
 
 
-API_ENDPOINT="https://api.github.com/repos/${REPO}/pulls"
+API_ENDPOINT="https://api.github.com/repos/${INPUT_REPOSITORY}/pulls"
 
-AUTH="Authorization: token ${GITHUB_TOKEN}"
+AUTH="Authorization: token ${INPUT_TOKEN}"
 ACCEPT="Accept: application/vnd.github+json"
 
-PR_BODY="Deployment PR created for @${ACTOR} at ${COMMIT}"
+PR_BODY="Deployment PR created for @${INPUT_ACTOR} at ${INPUT_COMMIT}"
 
-POST_PAYLOAD="{\"title\": \"${PR_TITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${DEPLOY}\", \"head\": \"${LOCAL}\"}"
+POST_PAYLOAD="{\"title\": \"${INPUT_PR_TITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
 
 curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" ${API_ENDPOINT} > /dev/null || \
 true > /dev/null
 # curl ${HEADERS} -X PATCH -d "${PAYLOAD}" ${API_ENDPOINT}
 
 cd ..
-rm -rf ${SRC}
-rm -rf ${DEST}
+rm -rf ${source}
+rm -rf ${destination}
