@@ -66,7 +66,7 @@ git push -f -q -u origin ${LOCAL}
 
 API_ENDPOINT="https://api.github.com/repos/${REPO}/pulls"
 
-HEADERS="-H 'Authorization: token ${TOKEN}' -H 'Accept: application/vnd.github+json'"
+HEADERS="-H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github+json\""
 
 PR_BODY="Deployment PR created for @${ACTOR} at ${COMMIT}"
 
