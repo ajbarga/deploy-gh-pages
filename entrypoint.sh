@@ -73,7 +73,7 @@ PR_BODY="Deployment PR created for @${ACTOR} at ${COMMIT}"
 
 POST_PAYLOAD="{\"title\": \"${PR_TITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${DEPLOY}\", \"head\": \"${LOCAL}\"}"
 
-curl -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" ${API_ENDPOINT}
+curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" ${API_ENDPOINT}
 # curl ${HEADERS} -X PATCH -d "${PAYLOAD}" ${API_ENDPOINT}
 
 cd ..
