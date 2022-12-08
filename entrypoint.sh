@@ -13,7 +13,7 @@ local="${GITHUB_ACTOR}/deploy"
 git config --global user.name "actions-bot"
 git config --global user.email "actions-bot@no-reply.github.com"
 
-git_base="https://${INPUT_TOKEN}@github.com"
+git_base="https://actions-bot:${INPUT_TOKEN}@github.com"
 
 # Clone src repo
 git clone ${git_base}/${INPUT_REPOSITORY}.git ${source}
