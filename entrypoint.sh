@@ -41,7 +41,7 @@ rm -rf ./*
 cd ..
 
 # Copy files from template repo
-cp -rf ${source}/${INPUT_BUILD}/* ${destination} || true
+cp -rf ${source}/${INPUT_BUILDFOLDER}/* ${destination} || true
 
 # Navigate to sync-ing repo
 cd ${destination}
