@@ -13,7 +13,7 @@ inputs:
     default: dist
   commit:
     description: Commit Url for body
-    default: 'https://github.com/${{ github.repository }}.git'
+    default: "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
   deploy:
     description: "Branch with page deployment"
     default: gh-pages
@@ -22,7 +22,7 @@ inputs:
     default: main
   prTitle:
     description: "Title for deployment PR"
-    default: ${{ github.event.pull_request.title }}
+    default: Deploy PR for commit
   repository:
     description: "Repository name with owner"
     default: ${{ github.repository }}
