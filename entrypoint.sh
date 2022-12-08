@@ -8,7 +8,7 @@ apt-get install curl > /dev/null
 
 source="main-local"
 destination="deploy-local"
-local="${INPUT_ACTOR}/deploy"
+local="${GITHUB_ACTOR}/deploy"
 
 git config --global user.name "actions-bot"
 git config --global user.email "actions-bot@no-reply.github.com"
@@ -58,7 +58,7 @@ API_ENDPOINT="https://api.github.com/repos/${INPUT_REPOSITORY}/pulls"
 AUTH="Authorization: token ${INPUT_TOKEN}"
 ACCEPT="Accept: application/vnd.github+json"
 
-PR_BODY="Deployment PR created for @${INPUT_ACTOR} at ${INPUT_COMMIT}"
+PR_BODY="Deployment PR created for @${GITHUB_ACTOR} at ${INPUT_COMMIT}"
 
 POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
 

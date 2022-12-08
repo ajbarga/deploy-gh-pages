@@ -4,10 +4,7 @@ inputs:
   token:
     description: 'PAT with admin access to repo'
     required: true
-  
-  actor:
-    description: 'PR author'
-    default: ${{ github.actor }}
+
   buildFolder:
     description: 'Build Folder'
     default: dist
