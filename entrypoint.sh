@@ -49,8 +49,6 @@ git commit -q -m "Deploy files from ${INPUT_MAIN} branch to ${INPUT_DEPLOY} bran
 # Push changes to remote repository
 git push -f -q -u origin ${local}
 
-
-
 API_ENDPOINT="https://api.github.com/repos/${INPUT_REPOSITORY}/pulls"
 
 AUTH="Authorization: token ${INPUT_TOKEN}"
@@ -60,9 +58,11 @@ PR_BODY="Deployment PR created for @${GITHUB_ACTOR} at ${INPUT_COMMIT}"
 
 POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
 
-curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" ${API_ENDPOINT} || \
-true > /dev/null
-# curl ${HEADERS} -X PATCH -d "${PAYLOAD}" ${API_ENDPOINT}
+PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"head\": \"${local}\"}"
+PR_NUMBER=1
+
+curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" > /dev/null \
+|| -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}${PR_NUMBER}" > /dev/null
 
 cd ..
 rm -rf ${source}
