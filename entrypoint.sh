@@ -1,14 +1,5 @@
 #!/bin/sh
 
-
-
-
-echo "home: $HOME, github_job: $GITHUB_JOB, github_ref: $GITHUB_REF, github_sha: $GITHUB_SHA, github_repository: $GITHUB_REPOSITORY, github_repository_owner: $GITHUB_REPOSITORY_OWNER, github_run_id: $GITHUB_RUN_ID, github_run_number: $GITHUB_RUN_NUMBER, github_retention_days: $GITHUB_RETENTION_DAYS, github_run_attempt: $GITHUB_RUN_ATTEMPT, github_actor: $GITHUB_ACTOR, github_triggering_actor: $GITHUB_TRIGGERING_ACTOR, github_workflow: $GITHUB_WORKFLOW, github_head_ref: $GITHUB_HEAD_REF, github_base_ref: $GITHUB_BASE_REF, github_event_name: $GITHUB_EVENT_NAME, github_server_url: $GITHUB_SERVER_URL, github_api_url: $GITHUB_API_URL, github_graphql_url: $GITHUB_GRAPHQL_URL, github_ref_name: $GITHUB_REF_NAME, github_ref_protected: $GITHUB_REF_PROTECTED, github_ref_type: $GITHUB_REF_TYPE, github_workspace: $GITHUB_WORKSPACE, github_action: $GITHUB_ACTION, github_event_path: $GITHUB_EVENT_PATH, github_action_repository: $GITHUB_ACTION_REPOSITORY, github_action_ref: $GITHUB_ACTION_REF, github_path: $GITHUB_PATH, github_env: $GITHUB_ENV, github_step_summary: $GITHUB_STEP_SUMMARY, github_state: $GITHUB_STATE, github_output: $GITHUB_OUTPUT, runner_os: $RUNNER_OS, runner_arch: $RUNNER_ARCH, runner_name: $RUNNER_NAME, runner_tool_cache: $RUNNER_TOOL_CACHE, runner_temp: $RUNNER_TEMP, runner_workspace: $RUNNER_WORKSPACE, actions_runtime_url: $ACTIONS_RUNTIME_URL, actions_runtime_token: $ACTIONS_RUNTIME_TOKEN, actions_cache_url: $ACTIONS_CACHE_URL"
-
-
-
-
-
 # Setup cUrl
 apt-get update > /dev/null
 apt-get upgrade > /dev/null
