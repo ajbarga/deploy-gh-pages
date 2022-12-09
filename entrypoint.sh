@@ -58,11 +58,7 @@ PR_BODY="Deployment PR created for @${GITHUB_ACTOR} at ${INPUT_COMMIT}"
 POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
 
 PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"head\": \"${local}\", \"body\": \"${PR_BODY}\"}"
-PR_NUMBER=1
-
-pr=$(curl -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}?state=open")
-pr_num=$(echo $pr | grep -oP '"head":{\s*"ref":"${local}",\s*"sha":"\K[a-z0-9]{40}(?=")')
-echo "pr: ${pr_num}."
+PR_NUMBER=70
 
 curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" > /dev/null \
 || curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}" > /dev/null
