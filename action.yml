@@ -30,3 +30,4 @@ runs:
     image: 'Dockerfile'
   steps:
    - run: echo "hello"
+     shell: bash
