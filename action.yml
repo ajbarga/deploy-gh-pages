@@ -25,9 +25,5 @@ inputs:
     default: ${{ github.repository }}
 
 runs:
-  using: "composite"
-  container: 
-    image: 'Dockerfile'
-  steps:
-   - run: echo "hello"
-     shell: bash
+  using: 'docker'
+  image: 'Dockerfile'
