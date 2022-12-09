@@ -5,7 +5,6 @@ apt-get update > /dev/null
 apt-get upgrade > /dev/null
 apt-get install curl > /dev/null
 
-
 source="main-local"
 destination="deploy-local"
 local="${GITHUB_ACTOR}/deploy"
@@ -60,6 +59,8 @@ POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base
 
 PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"head\": \"${local}\", \"body\": \"${PR_BODY}\"}"
 PR_NUMBER=1
+
+curl -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}"
 
 curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" > /dev/null \
 || curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}" > /dev/null
