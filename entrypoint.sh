@@ -60,7 +60,9 @@ POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base
 PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"head\": \"${local}\", \"body\": \"${PR_BODY}\"}"
 PR_NUMBER=1
 
-curl -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}"
+pr=$(curl -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}?state=open")
+pr_num=$(echo $pr | grep -oP '"head":{\s*"ref":"${local}",\s*"sha":"\K[a-z0-9]{40}(?=")')
+echo "pr: ${pr_num}."
 
 curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" > /dev/null \
 || curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}" > /dev/null
