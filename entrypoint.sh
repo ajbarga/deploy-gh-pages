@@ -62,7 +62,7 @@ PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"head\": \"${local}\", \"body\
 PR_NUMBER=1
 
 curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" > /dev/null \
-|| -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}${PR_NUMBER}" > /dev/null
+|| curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}" > /dev/null
 
 cd ..
 rm -rf ${source}
