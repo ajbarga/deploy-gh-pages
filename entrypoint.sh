@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 source="main-local"
 destination="deploy-local"
