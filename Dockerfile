@@ -4,8 +4,8 @@ COPY ./entrypoint.sh /entrypoint.sh
 
 RUN apt-get -y upgrade &&\
     apt-get -y update &&\
-    apt-get install curl &&\
-    apt-get install jq &&\
+    apt-get -y install curl &&\
+    apt-get -y install jq &&\
     chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
