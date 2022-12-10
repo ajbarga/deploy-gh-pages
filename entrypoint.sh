@@ -55,8 +55,8 @@ POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base
 PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\"}"
 
 curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" || \
-PR=$(curl -s -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}?head=${local}" | jq .[0].number) | \
-    curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}/${PR}"
+PR=$(curl -s -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}?head=${local}" | jq .[0].number) | echo $PR | \
+curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}/${PR}"
 
 cd ..
 rm -rf ${source}
