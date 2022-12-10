@@ -1,10 +1,5 @@
 #!/bin/sh
 
-# Setup cUrl
-apt-get update > /dev/null
-apt-get upgrade > /dev/null
-apt-get install curl > /dev/null
-
 source="main-local"
 destination="deploy-local"
 local="${GITHUB_ACTOR}/deploy"
@@ -57,11 +52,11 @@ PR_BODY="Deployment PR created for @${GITHUB_ACTOR} at ${INPUT_COMMIT}"
 
 POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
 
-PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"head\": \"${local}\", \"body\": \"${PR_BODY}\"}"
-PR_NUMBER=70
+PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\"}"
 
-curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" > /dev/null \
-|| curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}" > /dev/null
+curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" || \
+PR=$(curl -s -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}?head=${local}" | jq .[0].number) | \
+    curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}/${PR}"
 
 cd ..
 rm -rf ${source}
