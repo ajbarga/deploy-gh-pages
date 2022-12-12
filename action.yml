@@ -1,4 +1,5 @@
-name: 'Deploy gh-pages PR build'
+---
+name: Deploy GitHub Pages PR build
 description: Deploys a gh-pages site from a PR build
 inputs:
   token:
