@@ -44,7 +44,7 @@ git commit -q -m "Deploy files from ${INPUT_MAIN} branch to ${INPUT_DEPLOY} bran
 git push -f -q -u origin ${local}
 
 
-API_ENDPOINT="https://api.github.com/repos/${INPUT_REPOSITORY}/pulls"
+API_ENDPOINT="${GITHUB_API_URL}/repos/${INPUT_REPOSITORY}/pulls"
 AUTH="Authorization: token ${INPUT_TOKEN}"
 ACCEPT="Accept: application/vnd.github+json"
 PR_BODY="Deployment PR created for @${GITHUB_ACTOR} at ${INPUT_COMMIT}"
@@ -52,10 +52,7 @@ PR_BODY="Deployment PR created for @${GITHUB_ACTOR} at ${INPUT_COMMIT}"
 POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
 PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"edited: ${PR_BODY}\"}"
 
-curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" ||\
-PR=$( curl -s -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}?head=${local}" | jq .[0].number )
-echo "Found PR ${PR} on branch ${local}" &&\
-curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}/${PR}"
+curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" > /dev/null
 
 cd ..
 rm -rf ${source}
