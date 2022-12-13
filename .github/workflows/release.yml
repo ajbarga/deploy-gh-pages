@@ -10,8 +10,8 @@ jobs:
     if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
     steps:
-    - name: Release on PR Merge
-      uses: ajbarga/release-management@main
-      with:
-        token: ${{ secrets.MY_PAT }}
+      - name: Release on PR Merge
+        uses: ajbarga/release-management@main
+        with:
+          token: ${{ secrets.MY_PAT }}
         

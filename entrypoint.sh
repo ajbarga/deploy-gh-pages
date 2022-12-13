@@ -44,10 +44,12 @@ git commit -q -m "Deploy files from ${INPUT_MAIN} branch to ${INPUT_DEPLOY} bran
 git push -f -q -u origin ${local}
 
 
+commit="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+
 API_ENDPOINT="${GITHUB_API_URL}/repos/${INPUT_REPOSITORY}/pulls"
 AUTH="Authorization: token ${INPUT_TOKEN}"
 ACCEPT="Accept: application/vnd.github+json"
-PR_BODY="Deployment PR created for @${GITHUB_ACTOR} at ${INPUT_COMMIT}"
+PR_BODY="Deployment PR created for @${GITHUB_ACTOR} at ${commit}"
 
 POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base\": \"${INPUT_DEPLOY}\", \"head\": \"${local}\"}"
 PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"edited: ${PR_BODY}\"}"

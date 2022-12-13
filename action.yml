@@ -1,4 +1,5 @@
 ---
+
 name: Deploy GitHub Pages PR build
 description: Deploys a gh-pages site from a PR build
 inputs:
@@ -9,15 +10,12 @@ inputs:
   buildFolder:
     description: 'Build Folder'
     default: dist
-  commit:
-    description: Commit Url for body
-    default: "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
   deploy:
     description: "Branch with page deployment"
     default: gh-pages
   main:
     description: "Branch with raw code"
-    default: ${{ github.ref }}
+    default: ${{ github.ref_name }}
   prTitle:
     description: "Title for deployment PR"
     default: Deploy PR for commit
