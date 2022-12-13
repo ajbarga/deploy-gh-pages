@@ -1,5 +1,4 @@
 ---
-
 name: Deploy GitHub Pages PR build
 description: Deploys a gh-pages site from a PR build
 inputs:
