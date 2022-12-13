@@ -3,7 +3,7 @@ name: Lint
 on:
   push:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   lint:
@@ -16,9 +16,9 @@ jobs:
         with:
           fetch-depth: 0
           
-      - name: Lint changes against ${{ inputs.default_branch }}
-        uses: github/super-linter/slim@v4.9.7
+      - uses: github/super-linter/slim@v4.9.7
         env: 
+          GITHUB_TOKEN: ${{ github.token }}
           DEFAULT_BRANCH: main
           VALIDATE_CSS: true
           VALIDATE_HTML: true

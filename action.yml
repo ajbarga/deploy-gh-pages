@@ -17,7 +17,7 @@ inputs:
     default: gh-pages
   main:
     description: "Branch with raw code"
-    default: main
+    default: ${{ github.ref }}
   prTitle:
     description: "Title for deployment PR"
     default: Deploy PR for commit
