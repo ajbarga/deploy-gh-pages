@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Auto-Deploy to GitHub Pages
 author: ajbarga
 branding:
   icon: 'package'
