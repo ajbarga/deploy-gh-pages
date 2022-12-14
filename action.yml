@@ -1,4 +1,8 @@
-name: Deploy GitHub Pages PR build
+name: Deploy to GitHub Pages
+author: ajbarga
+branding:
+  icon: 'package'
+  color: 'yellow'
 description: Deploys a gh-pages site from a PR build
 inputs:
   token:
