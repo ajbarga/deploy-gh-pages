@@ -55,8 +55,8 @@ POST_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"${PR_BODY}\", \"base
 PATCH_PAYLOAD="{\"title\": \"${INPUT_PRTITLE}\", \"body\": \"edited: ${PR_BODY}\"}"
 
 #curl -s -H "${AUTH}" -H "${ACCEPT}" -X POST -d "${POST_PAYLOAD}" "${API_ENDPOINT}" ||
-curl -s -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}?head=${local}" | jq .[0].number # &&\
-# echo "Found PR ${PR} on branch ${local}" &&\
+PR=$(curl -s -H "${AUTH}" -H "${ACCEPT}" "${API_ENDPOINT}?head=${local}" | jq .[0].number) # &&\
+echo "Found PR ${PR} on branch ${local}" 
 # curl -s -H "${AUTH}" -H "${ACCEPT}" -X PATCH -d "${PATCH_PAYLOAD}" "${API_ENDPOINT}/${PR}"
 
 # add  ' > /dev/null'
